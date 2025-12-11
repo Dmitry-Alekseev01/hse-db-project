@@ -1,0 +1,172 @@
+basePath: /api/v1
+definitions:
+  delivery.createClubDTO:
+    properties:
+      club_name:
+        type: string
+      website:
+        type: string
+    required:
+    - club_name
+    type: object
+  domain.Club:
+    properties:
+      club_name:
+        type: string
+      creation_date:
+        type: string
+      team_id:
+        type: integer
+      website:
+        type: string
+    type: object
+  domain.ErrorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@example.com
+    name: API Support
+  description: REST API сервиса управления футбольным клубом.
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: Football Service API
+  version: "1.0"
+paths:
+  /clubs:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает все клубы из базы данных
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Club'
+            type: array
+      summary: Получить список клубов
+      tags:
+      - club
+    post:
+      consumes:
+      - application/json
+      description: Добавляет клуб в базу
+      parameters:
+      - description: Данные клуба
+        in: body
+        name: club
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Club'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.Club'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Создать новый клуб
+      tags:
+      - club
+  /clubs/{id}:
+    delete:
+      description: Удаляет клуб по идентификатору
+      parameters:
+      - description: ID клуба
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: Успешно удалено
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Удалить клуб
+      tags:
+      - club
+    get:
+      consumes:
+      - application/json
+      description: Возвращает данные клуба по его идентификатору
+      parameters:
+      - description: ID клуба
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Club'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Получить клуб по ID
+      tags:
+      - club
+    put:
+      consumes:
+      - application/json
+      description: Обновляет клуб по ID
+      parameters:
+      - description: ID клуба
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Данные клуба для обновления
+        in: body
+        name: club
+        required: true
+        schema:
+          $ref: '#/definitions/delivery.createClubDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Club'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Обновить клуб
+      tags:
+      - club
+swagger: "2.0"
