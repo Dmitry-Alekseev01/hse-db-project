@@ -50,7 +50,7 @@ INSERT INTO Coach_Specification (specification_id, coach_id) VALUES
 
 INSERT INTO Staff (staff_name, staff_surname, salary, specification_id, club_id) VALUES
 -- Персонал Зенита
-('Агиль', 'Эмиров', 300.00, 1, 1), -- уборщик
+('Агилъ', 'Эмировъ', 30000.00, 1, 1), -- уборщик
 ('Алексей', 'Каренин', 90000.00, 4, 1), -- врач
 ('Александр', 'Медведев', 1500000.00, 6, 1), -- президент
 -- Персонал Спартака
