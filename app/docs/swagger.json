@@ -367,6 +367,159 @@
                     }
                 }
             }
+        },
+        "/teams": {
+            "get": {
+                "tags": [
+                    "team"
+                ],
+                "summary": "Список Team",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Limit",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Offset",
+                        "name": "offset",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/domain.Team"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "team"
+                ],
+                "summary": "Создать Team",
+                "parameters": [
+                    {
+                        "description": "Данные",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/delivery.createTeamDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Team"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/domain.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/teams/{id}": {
+            "get": {
+                "tags": [
+                    "team"
+                ],
+                "summary": "Получить Team",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Team"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/domain.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "team"
+                ],
+                "summary": "Обновить Team",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Данные",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/delivery.createTeamDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Team"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "team"
+                ],
+                "summary": "Удалить Team",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -408,6 +561,25 @@
                 },
                 "team_id": {
                     "type": "integer"
+                }
+            }
+        },
+        "delivery.createTeamDTO": {
+            "type": "object",
+            "required": [
+                "budget",
+                "club_id",
+                "team_name"
+            ],
+            "properties": {
+                "budget": {
+                    "type": "number"
+                },
+                "club_id": {
+                    "type": "integer"
+                },
+                "team_name": {
+                    "type": "string"
                 }
             }
         },
@@ -455,6 +627,23 @@
             "type": "object",
             "properties": {
                 "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "domain.Team": {
+            "type": "object",
+            "properties": {
+                "budget": {
+                    "type": "number"
+                },
+                "club_id": {
+                    "type": "integer"
+                },
+                "team_id": {
+                    "type": "integer"
+                },
+                "team_name": {
                     "type": "string"
                 }
             }

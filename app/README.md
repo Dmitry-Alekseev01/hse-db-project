@@ -20,19 +20,26 @@ make up
 │   ├── delivery/
 │   │   ├── club_handler.go
 │   │   ├── coach_handler.go
-│   │   └── router.go
+│   │   ├── router.go
+│   │   └── team_handler.go
 │   ├── domain/
 │   │   ├── interfaces.go
 │   │   └── models.go
 │   ├── repository/
 │   │   ├── coach_repo.go
-│   │   └── club_repo.go
+│   │   ├── club_repo.go
+│   │   └── team_repo.go
 │   └── usecase/
 │       ├── coach_handler.go
-│       └── club_usecase.go
+│       ├── club_usecase.go
+│       └── team_repo.go
 ├── migrations/
 │   ├── 000_create_db.sql
-│   └── 001_init_db.sql
+│   ├── 001_init_db.sql
+│   ├── 002_fiil_reference_data.sql
+│   ├── 003_fill_clubs_teams.sql
+│   ├── 004_fill_people.sql
+│   └── 005_fill_games.sql
 ├── .env.example
 ├── .girignore
 ├── docker-compose.yml

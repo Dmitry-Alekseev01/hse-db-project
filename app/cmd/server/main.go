@@ -54,17 +54,26 @@ func main() {
 		log.Fatal("DB ping failed:", err)
 	}
 
-	// Wire dependencies
+	// Repositories
 	clubRepo := repository.NewClubRepo(dbPool)
+	teamRepo := repository.NewTeamRepo(dbPool)
 	coachRepo := repository.NewCoachRepo(dbPool)
+
+	// Usecase
 	clubUC := usecase.NewClubUsecase(clubRepo)
+	teamUC := usecase.NewTeamUsecase(teamRepo)
 	coachUC := usecase.NewCoachUsecase(coachRepo)
+
+	// Handler
 	clubHandler := delivery.NewClubHandler(clubUC)
+	teamHandler := delivery.NewTeamHandler(teamUC)
 	coachHandler := delivery.NewCoachHandler(coachUC)
 
+	// Router
 	router := delivery.NewRouter(
 		clubHandler,
 		coachHandler,
+		teamHandler,
 	)
 
 	// HTTP Server with graceful shutdown
