@@ -54,12 +54,43 @@ func main() {
 		log.Fatal("DB ping failed:", err)
 	}
 
-	// Wire dependencies
+	// Repositories
 	clubRepo := repository.NewClubRepo(dbPool)
-	clubUC := usecase.NewClubUsecase(clubRepo)
-	clubHandler := delivery.NewClubHandler(clubUC)
+	teamRepo := repository.NewTeamRepo(dbPool)
+	coachRepo := repository.NewCoachRepo(dbPool)
+	playerRepo := repository.NewPlayerRepo(dbPool)
+	stadiumRepo := repository.NewStadiumRepo(dbPool)
+	staffRepo := repository.NewStaffRepo(dbPool)
+	gameRepo := repository.NewGameRepo(dbPool)
 
-	router := delivery.NewRouter(clubHandler)
+	// Usecase
+	clubUC := usecase.NewClubUsecase(clubRepo)
+	teamUC := usecase.NewTeamUsecase(teamRepo)
+	coachUC := usecase.NewCoachUsecase(coachRepo)
+	playerUC := usecase.NewPlayerUsecase(playerRepo)
+	stadiumUC := usecase.NewStadiumUsecase(stadiumRepo)
+	staffUC := usecase.NewStaffUsecase(staffRepo)
+	gameUC := usecase.NewGameUsecase(gameRepo)
+
+	// Handler
+	clubHandler := delivery.NewClubHandler(clubUC)
+	teamHandler := delivery.NewTeamHandler(teamUC)
+	coachHandler := delivery.NewCoachHandler(coachUC)
+	playerHandler := delivery.NewPlayerHandler(playerUC)
+	stadiumHandler := delivery.NewStadiumHandler(stadiumUC)
+	staffHandler := delivery.NewStaffHandler(staffUC)
+	gameHandler := delivery.NewGameHandler(gameUC)
+
+	// Router
+	router := delivery.NewRouter(
+		clubHandler,
+		teamHandler,
+		coachHandler,
+		playerHandler,
+		stadiumHandler,
+		staffHandler,
+		gameHandler,
+	)
 
 	// HTTP Server with graceful shutdown
 	server := &http.Server{
