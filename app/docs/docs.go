@@ -220,6 +220,159 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/coachs": {
+            "get": {
+                "tags": [
+                    "coach"
+                ],
+                "summary": "Список Coach",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Limit",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Offset",
+                        "name": "offset",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/domain.Coach"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "coach"
+                ],
+                "summary": "Создать Coach",
+                "parameters": [
+                    {
+                        "description": "Данные",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/delivery.createCoachDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Coach"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/domain.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/coachs/{id}": {
+            "get": {
+                "tags": [
+                    "coach"
+                ],
+                "summary": "Получить Coach",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Coach"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/domain.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "coach"
+                ],
+                "summary": "Обновить Coach",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Данные",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/delivery.createCoachDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Coach"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "coach"
+                ],
+                "summary": "Удалить Coach",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -237,6 +390,33 @@ const docTemplate = `{
                 }
             }
         },
+        "delivery.createCoachDTO": {
+            "type": "object",
+            "required": [
+                "coach_name",
+                "coach_surname",
+                "phone",
+                "salary",
+                "team_id"
+            ],
+            "properties": {
+                "coach_name": {
+                    "type": "string"
+                },
+                "coach_surname": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "salary": {
+                    "type": "number"
+                },
+                "team_id": {
+                    "type": "integer"
+                }
+            }
+        },
         "domain.Club": {
             "type": "object",
             "properties": {
@@ -251,6 +431,29 @@ const docTemplate = `{
                 },
                 "website": {
                     "type": "string"
+                }
+            }
+        },
+        "domain.Coach": {
+            "type": "object",
+            "properties": {
+                "coach_id": {
+                    "type": "integer"
+                },
+                "coach_name": {
+                    "type": "string"
+                },
+                "coach_surname": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "salary": {
+                    "type": "number"
+                },
+                "team_id": {
+                    "type": "integer"
                 }
             }
         },

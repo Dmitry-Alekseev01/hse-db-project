@@ -9,6 +9,25 @@ definitions:
     required:
     - club_name
     type: object
+  delivery.createCoachDTO:
+    properties:
+      coach_name:
+        type: string
+      coach_surname:
+        type: string
+      phone:
+        type: string
+      salary:
+        type: number
+      team_id:
+        type: integer
+    required:
+    - coach_name
+    - coach_surname
+    - phone
+    - salary
+    - team_id
+    type: object
   domain.Club:
     properties:
       club_name:
@@ -19,6 +38,21 @@ definitions:
         type: integer
       website:
         type: string
+    type: object
+  domain.Coach:
+    properties:
+      coach_id:
+        type: integer
+      coach_name:
+        type: string
+      coach_surname:
+        type: string
+      phone:
+        type: string
+      salary:
+        type: number
+      team_id:
+        type: integer
     type: object
   domain.ErrorResponse:
     properties:
@@ -169,4 +203,103 @@ paths:
       summary: Обновить клуб
       tags:
       - club
+  /coachs:
+    get:
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Coach'
+            type: array
+      summary: Список Coach
+      tags:
+      - coach
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Данные
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/delivery.createCoachDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.Coach'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Создать Coach
+      tags:
+      - coach
+  /coachs/{id}:
+    delete:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: Deleted
+      summary: Удалить Coach
+      tags:
+      - coach
+    get:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Coach'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Получить Coach
+      tags:
+      - coach
+    put:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Данные
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/delivery.createCoachDTO'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Coach'
+      summary: Обновить Coach
+      tags:
+      - coach
 swagger: "2.0"

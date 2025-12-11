@@ -5,19 +5,11 @@ import (
 	"hse-football/internal/domain"
 )
 
-type ClubUsecase interface {
-	Create(ctx context.Context, club *domain.Club) (int64, error)
-	GetByID(ctx context.Context, id int64) (*domain.Club, error)
-	Update(ctx context.Context, club *domain.Club) error
-	Delete(ctx context.Context, id int64) error
-	List(ctx context.Context, limit, offset int) ([]*domain.Club, error)
-}
-
 type clubUsecase struct {
 	repo domain.ClubRepository
 }
 
-func NewClubUsecase(r domain.ClubRepository) ClubUsecase {
+func NewClubUsecase(r domain.ClubRepository) domain.ClubUsecase {
 	return &clubUsecase{repo: r}
 }
 

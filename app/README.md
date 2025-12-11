@@ -19,13 +19,16 @@ make up
 ├── internal/
 │   ├── delivery/
 │   │   ├── club_handler.go
+│   │   ├── coach_handler.go
 │   │   └── router.go
 │   ├── domain/
 │   │   ├── interfaces.go
 │   │   └── models.go
 │   ├── repository/
+│   │   ├── coach_repo.go
 │   │   └── club_repo.go
 │   └── usecase/
+│       ├── coach_handler.go
 │       └── club_usecase.go
 ├── migrations/
 │   ├── 000_create_db.sql

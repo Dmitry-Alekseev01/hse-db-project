@@ -56,10 +56,16 @@ func main() {
 
 	// Wire dependencies
 	clubRepo := repository.NewClubRepo(dbPool)
+	coachRepo := repository.NewCoachRepo(dbPool)
 	clubUC := usecase.NewClubUsecase(clubRepo)
+	coachUC := usecase.NewCoachUsecase(coachRepo)
 	clubHandler := delivery.NewClubHandler(clubUC)
+	coachHandler := delivery.NewCoachHandler(coachUC)
 
-	router := delivery.NewRouter(clubHandler)
+	router := delivery.NewRouter(
+		clubHandler,
+		coachHandler,
+	)
 
 	// HTTP Server with graceful shutdown
 	server := &http.Server{

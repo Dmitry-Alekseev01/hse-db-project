@@ -3,17 +3,16 @@ package delivery
 import (
 	"github.com/gin-gonic/gin"
 	"hse-football/internal/domain"
-	"hse-football/internal/usecase"
 	"net/http"
 	"strconv"
 	"time"
 )
 
 type ClubHandler struct {
-	svc usecase.ClubUsecase
+	svc domain.ClubUsecase
 }
 
-func NewClubHandler(s usecase.ClubUsecase) *ClubHandler {
+func NewClubHandler(s domain.ClubUsecase) *ClubHandler {
 	return &ClubHandler{svc: s}
 }
 

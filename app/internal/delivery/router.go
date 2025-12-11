@@ -6,11 +6,12 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-func NewRouter(clubHandler *ClubHandler) *gin.Engine {
+func NewRouter(clubHandler *ClubHandler, coachH *CoachHandler) *gin.Engine {
 	r := gin.Default()
 
 	api := r.Group("/api/v1")
 	clubHandler.RegisterRoutes(api)
+	coachH.RegisterRoutes(api)
 
 	// Swagger
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
