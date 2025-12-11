@@ -23,6 +23,7 @@ make up
 │   │   ├── player_handler.go
 │   │   ├── router.go
 │   │   ├── stadium_handler.go
+│   │   ├── staff_handler.go
 │   │   └── team_handler.go
 │   ├── domain/
 │   │   ├── interfaces.go
@@ -32,12 +33,14 @@ make up
 │   │   ├── club_repo.go
 │   │   ├── player_repo.go
 │   │   ├── stadium_repo.go
+│   │   ├── staff_repo.go
 │   │   └── team_repo.go
 │   └── usecase/
 │       ├── coach_handler.go
 │       ├── club_usecase.go
 │       ├── player_usecase.go
 │       ├── stadium_usecase.go
+│       ├── staff_usecase.go
 │       └── team_repo.go
 ├── migrations/
 │   ├── 000_create_db.sql
