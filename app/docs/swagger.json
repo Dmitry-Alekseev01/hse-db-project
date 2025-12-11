@@ -368,6 +368,159 @@
                 }
             }
         },
+        "/players": {
+            "get": {
+                "tags": [
+                    "player"
+                ],
+                "summary": "Список Player",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Limit",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Offset",
+                        "name": "offset",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/domain.Player"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "player"
+                ],
+                "summary": "Создать Player",
+                "parameters": [
+                    {
+                        "description": "Данные",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/delivery.createPlayerDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Player"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/domain.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/players/{id}": {
+            "get": {
+                "tags": [
+                    "player"
+                ],
+                "summary": "Получить Player",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Player"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/domain.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "player"
+                ],
+                "summary": "Обновить Player",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Данные",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/delivery.createPlayerDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Player"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "player"
+                ],
+                "summary": "Удалить Player",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    }
+                }
+            }
+        },
         "/teams": {
             "get": {
                 "tags": [
@@ -564,6 +717,45 @@
                 }
             }
         },
+        "delivery.createPlayerDTO": {
+            "type": "object",
+            "required": [
+                "birth_date",
+                "phone",
+                "player_name",
+                "player_number",
+                "player_surname",
+                "salary",
+                "status_id",
+                "team_id"
+            ],
+            "properties": {
+                "birth_date": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "player_name": {
+                    "type": "string"
+                },
+                "player_number": {
+                    "type": "integer"
+                },
+                "player_surname": {
+                    "type": "string"
+                },
+                "salary": {
+                    "type": "number"
+                },
+                "status_id": {
+                    "type": "integer"
+                },
+                "team_id": {
+                    "type": "integer"
+                }
+            }
+        },
         "delivery.createTeamDTO": {
             "type": "object",
             "required": [
@@ -628,6 +820,38 @@
             "properties": {
                 "message": {
                     "type": "string"
+                }
+            }
+        },
+        "domain.Player": {
+            "type": "object",
+            "properties": {
+                "birth_date": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "player_id": {
+                    "type": "integer"
+                },
+                "player_name": {
+                    "type": "string"
+                },
+                "player_number": {
+                    "type": "integer"
+                },
+                "player_surname": {
+                    "type": "string"
+                },
+                "salary": {
+                    "type": "number"
+                },
+                "status_id": {
+                    "type": "integer"
+                },
+                "team_id": {
+                    "type": "integer"
                 }
             }
         },

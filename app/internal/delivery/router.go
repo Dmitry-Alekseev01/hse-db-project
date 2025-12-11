@@ -8,8 +8,9 @@ import (
 
 func NewRouter(
 	clubHandler *ClubHandler,
-	coachHandler *CoachHandler,
 	teamHandler *TeamHandler,
+	coachHandler *CoachHandler,
+	playerHandler *PlayerHandler,
 ) *gin.Engine {
 	r := gin.Default()
 
@@ -17,6 +18,7 @@ func NewRouter(
 	clubHandler.RegisterRoutes(api)
 	teamHandler.RegisterRoutes(api)
 	coachHandler.RegisterRoutes(api)
+	playerHandler.RegisterRoutes(api)
 
 	// Swagger
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

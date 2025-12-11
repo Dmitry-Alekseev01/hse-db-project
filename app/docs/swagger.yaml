@@ -28,6 +28,34 @@ definitions:
     - salary
     - team_id
     type: object
+  delivery.createPlayerDTO:
+    properties:
+      birth_date:
+        type: string
+      phone:
+        type: string
+      player_name:
+        type: string
+      player_number:
+        type: integer
+      player_surname:
+        type: string
+      salary:
+        type: number
+      status_id:
+        type: integer
+      team_id:
+        type: integer
+    required:
+    - birth_date
+    - phone
+    - player_name
+    - player_number
+    - player_surname
+    - salary
+    - status_id
+    - team_id
+    type: object
   delivery.createTeamDTO:
     properties:
       budget:
@@ -71,6 +99,27 @@ definitions:
     properties:
       message:
         type: string
+    type: object
+  domain.Player:
+    properties:
+      birth_date:
+        type: string
+      phone:
+        type: string
+      player_id:
+        type: integer
+      player_name:
+        type: string
+      player_number:
+        type: integer
+      player_surname:
+        type: string
+      salary:
+        type: number
+      status_id:
+        type: integer
+      team_id:
+        type: integer
     type: object
   domain.Team:
     properties:
@@ -326,6 +375,105 @@ paths:
       summary: Обновить Coach
       tags:
       - coach
+  /players:
+    get:
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Player'
+            type: array
+      summary: Список Player
+      tags:
+      - player
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Данные
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/delivery.createPlayerDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.Player'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Создать Player
+      tags:
+      - player
+  /players/{id}:
+    delete:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: Deleted
+      summary: Удалить Player
+      tags:
+      - player
+    get:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Player'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Получить Player
+      tags:
+      - player
+    put:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Данные
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/delivery.createPlayerDTO'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Player'
+      summary: Обновить Player
+      tags:
+      - player
   /teams:
     get:
       parameters:
