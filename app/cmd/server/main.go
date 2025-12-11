@@ -61,6 +61,7 @@ func main() {
 	playerRepo := repository.NewPlayerRepo(dbPool)
 	stadiumRepo := repository.NewStadiumRepo(dbPool)
 	staffRepo := repository.NewStaffRepo(dbPool)
+	gameRepo := repository.NewGameRepo(dbPool)
 
 	// Usecase
 	clubUC := usecase.NewClubUsecase(clubRepo)
@@ -69,6 +70,7 @@ func main() {
 	playerUC := usecase.NewPlayerUsecase(playerRepo)
 	stadiumUC := usecase.NewStadiumUsecase(stadiumRepo)
 	staffUC := usecase.NewStaffUsecase(staffRepo)
+	gameUC := usecase.NewGameUsecase(gameRepo)
 
 	// Handler
 	clubHandler := delivery.NewClubHandler(clubUC)
@@ -77,6 +79,7 @@ func main() {
 	playerHandler := delivery.NewPlayerHandler(playerUC)
 	stadiumHandler := delivery.NewStadiumHandler(stadiumUC)
 	staffHandler := delivery.NewStaffHandler(staffUC)
+	gameHandler := delivery.NewGameHandler(gameUC)
 
 	// Router
 	router := delivery.NewRouter(
@@ -86,6 +89,7 @@ func main() {
 		playerHandler,
 		stadiumHandler,
 		staffHandler,
+		gameHandler,
 	)
 
 	// HTTP Server with graceful shutdown

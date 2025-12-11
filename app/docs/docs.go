@@ -374,6 +374,159 @@ const docTemplate = `{
                 }
             }
         },
+        "/games": {
+            "get": {
+                "tags": [
+                    "game"
+                ],
+                "summary": "Список Game",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Limit",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Offset",
+                        "name": "offset",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/domain.Game"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "game"
+                ],
+                "summary": "Создать Game",
+                "parameters": [
+                    {
+                        "description": "Данные",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/delivery.createGameDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Game"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/domain.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/games/{id}": {
+            "get": {
+                "tags": [
+                    "game"
+                ],
+                "summary": "Получить Game",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Game"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/domain.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "game"
+                ],
+                "summary": "Обновить Game",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Данные",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/delivery.createGameDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Game"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "game"
+                ],
+                "summary": "Удалить Game",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    }
+                }
+            }
+        },
         "/players": {
             "get": {
                 "tags": [
@@ -511,6 +664,312 @@ const docTemplate = `{
                     "player"
                 ],
                 "summary": "Удалить Player",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    }
+                }
+            }
+        },
+        "/stadiums": {
+            "get": {
+                "tags": [
+                    "stadium"
+                ],
+                "summary": "Список Stadium",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Limit",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Offset",
+                        "name": "offset",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/domain.Stadium"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "stadium"
+                ],
+                "summary": "Создать Stadium",
+                "parameters": [
+                    {
+                        "description": "Данные",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/delivery.createStadiumDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Stadium"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/domain.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/stadiums/{id}": {
+            "get": {
+                "tags": [
+                    "stadium"
+                ],
+                "summary": "Получить Stadium",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Stadium"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/domain.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "stadium"
+                ],
+                "summary": "Обновить Stadium",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Данные",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/delivery.createStadiumDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Stadium"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "stadium"
+                ],
+                "summary": "Удалить Stadium",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Deleted"
+                    }
+                }
+            }
+        },
+        "/staffs": {
+            "get": {
+                "tags": [
+                    "staff"
+                ],
+                "summary": "Список Staff",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Limit",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Offset",
+                        "name": "offset",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/domain.Staff"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "staff"
+                ],
+                "summary": "Создать Staff",
+                "parameters": [
+                    {
+                        "description": "Данные",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/delivery.createStaffDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Staff"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/domain.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/staffs/{id}": {
+            "get": {
+                "tags": [
+                    "staff"
+                ],
+                "summary": "Получить Staff",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Staff"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/domain.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "staff"
+                ],
+                "summary": "Обновить Staff",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Данные",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/delivery.createStaffDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Staff"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "staff"
+                ],
+                "summary": "Удалить Staff",
                 "parameters": [
                     {
                         "type": "integer",
@@ -723,6 +1182,29 @@ const docTemplate = `{
                 }
             }
         },
+        "delivery.createGameDTO": {
+            "type": "object",
+            "required": [
+                "match_date",
+                "stadium_id",
+                "team_1_id",
+                "team_2_id"
+            ],
+            "properties": {
+                "match_date": {
+                    "type": "string"
+                },
+                "stadium_id": {
+                    "type": "integer"
+                },
+                "team_1_id": {
+                    "type": "integer"
+                },
+                "team_2_id": {
+                    "type": "integer"
+                }
+            }
+        },
         "delivery.createPlayerDTO": {
             "type": "object",
             "required": [
@@ -759,6 +1241,48 @@ const docTemplate = `{
                 },
                 "team_id": {
                     "type": "integer"
+                }
+            }
+        },
+        "delivery.createStadiumDTO": {
+            "type": "object",
+            "required": [
+                "capacity",
+                "location"
+            ],
+            "properties": {
+                "capacity": {
+                    "type": "integer"
+                },
+                "location": {
+                    "type": "string"
+                }
+            }
+        },
+        "delivery.createStaffDTO": {
+            "type": "object",
+            "required": [
+                "club_id",
+                "salary",
+                "specification_id",
+                "staff_name",
+                "staff_surname"
+            ],
+            "properties": {
+                "club_id": {
+                    "type": "integer"
+                },
+                "salary": {
+                    "type": "number"
+                },
+                "specification_id": {
+                    "type": "integer"
+                },
+                "staff_name": {
+                    "type": "string"
+                },
+                "staff_surname": {
+                    "type": "string"
                 }
             }
         },
@@ -829,6 +1353,26 @@ const docTemplate = `{
                 }
             }
         },
+        "domain.Game": {
+            "type": "object",
+            "properties": {
+                "match_date": {
+                    "type": "string"
+                },
+                "match_id": {
+                    "type": "integer"
+                },
+                "stadium_id": {
+                    "type": "integer"
+                },
+                "team_1_id": {
+                    "type": "integer"
+                },
+                "team_2_id": {
+                    "type": "integer"
+                }
+            }
+        },
         "domain.Player": {
             "type": "object",
             "properties": {
@@ -858,6 +1402,46 @@ const docTemplate = `{
                 },
                 "team_id": {
                     "type": "integer"
+                }
+            }
+        },
+        "domain.Stadium": {
+            "type": "object",
+            "properties": {
+                "build_date": {
+                    "type": "string"
+                },
+                "capacity": {
+                    "type": "integer"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "stadium_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "domain.Staff": {
+            "type": "object",
+            "properties": {
+                "club_id": {
+                    "type": "integer"
+                },
+                "salary": {
+                    "type": "number"
+                },
+                "specification_id": {
+                    "type": "integer"
+                },
+                "staff_id": {
+                    "type": "integer"
+                },
+                "staff_name": {
+                    "type": "string"
+                },
+                "staff_surname": {
+                    "type": "string"
                 }
             }
         },

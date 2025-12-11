@@ -20,6 +20,7 @@ make up
 │   ├── delivery/
 │   │   ├── club_handler.go
 │   │   ├── coach_handler.go
+│   │   ├── game_handler.go
 │   │   ├── player_handler.go
 │   │   ├── router.go
 │   │   ├── stadium_handler.go
@@ -29,15 +30,17 @@ make up
 │   │   ├── interfaces.go
 │   │   └── models.go
 │   ├── repository/
-│   │   ├── coach_repo.go
 │   │   ├── club_repo.go
+│   │   ├── coach_repo.go
+│   │   ├── game_repo.go
 │   │   ├── player_repo.go
 │   │   ├── stadium_repo.go
 │   │   ├── staff_repo.go
 │   │   └── team_repo.go
 │   └── usecase/
-│       ├── coach_handler.go
 │       ├── club_usecase.go
+│       ├── coach_handler.go
+│       ├── game_usecase.go
 │       ├── player_usecase.go
 │       ├── stadium_usecase.go
 │       ├── staff_usecase.go

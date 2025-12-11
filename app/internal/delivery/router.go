@@ -13,6 +13,7 @@ func NewRouter(
 	playerHandler *PlayerHandler,
 	stadiumHandler *StadiumHandler,
 	staffHandler *StaffHandler,
+	gameHandler *GameHandler,
 ) *gin.Engine {
 	r := gin.Default()
 
@@ -23,6 +24,7 @@ func NewRouter(
 	playerHandler.RegisterRoutes(api)
 	stadiumHandler.RegisterRoutes(api)
 	staffHandler.RegisterRoutes(api)
+	gameHandler.RegisterRoutes(api)
 
 	// Swagger
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
