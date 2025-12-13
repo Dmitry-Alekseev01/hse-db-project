@@ -1,3 +1,5 @@
+BEGIN;
+
 DO $$
 DECLARE
   rec RECORD;
@@ -18,3 +20,5 @@ BEGIN
 
   RAISE NOTICE 'Проверка бюджета завершена.';
 END $$ LANGUAGE plpgsql;
+
+COMMIT;

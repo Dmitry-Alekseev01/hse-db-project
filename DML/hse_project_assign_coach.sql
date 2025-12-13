@@ -1,3 +1,5 @@
+BEGIN;
+
 DO $$
 DECLARE
   p_team_id INT := 1;
@@ -32,3 +34,5 @@ BEGIN
   RAISE NOTICE 'Добавлен тренер % % с id=% и специализациями %',
                p_coach_name, p_coach_surname, v_coach_id, array_to_string(p_specs, ', ');
 END $$ LANGUAGE plpgsql;
+
+COMMIT;

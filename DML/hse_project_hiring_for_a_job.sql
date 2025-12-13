@@ -1,3 +1,5 @@
+BEGIN;
+
 DO $$
 DECLARE
   p_club_id INT := 1;
@@ -17,3 +19,5 @@ BEGIN
 
   RAISE NOTICE 'Сотрудник % % принят в клуб % как % (spec_id=%)', p_name, p_surname, p_club_id, p_spec_type, v_spec_id;
 END $$ LANGUAGE plpgsql;
+
+COMMIT;

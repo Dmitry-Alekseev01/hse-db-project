@@ -1,3 +1,5 @@
+BEGIN;
+
 DO $$
 DECLARE
   p_player_id INT := 2; -- player_id
@@ -31,3 +33,5 @@ BEGIN
 
   RAISE NOTICE 'Игрок % отдан в аренду команде % с % по %', p_player_id, p_loan_team_id, p_start_date, p_end_date;
 END $$ LANGUAGE plpgsql;
+
+COMMIT;
