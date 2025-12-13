@@ -50,7 +50,8 @@ create table Game(
   stadium_id int not null references Stadium(stadium_id),
   team_1_id int not null references Team(team_id),
   team_2_id int not null references Team(team_id),
-  match_date date not null default current_date
+  match_date date not null default current_date,
+  attendance int not null
 );
 
 create table PlayerStatus(
