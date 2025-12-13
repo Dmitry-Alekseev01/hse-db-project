@@ -1,3 +1,5 @@
+BEGIN;
+
 DO $$
 DECLARE
   p_player_id INT := 1; -- player_id
@@ -48,3 +50,5 @@ BEGIN
   RAISE NOTICE 'Трансфер игрока % завершён: продавец team=% , покупатель team=%, сумма=%',
                p_player_id, seller_team_id, p_buyer_team_id, p_transfer_fee;
 END $$ LANGUAGE plpgsql;
+
+COMMIT;

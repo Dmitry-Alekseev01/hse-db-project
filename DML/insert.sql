@@ -1,3 +1,5 @@
+BEGIN;
+
 INSERT INTO club (club_name, creation_date, website) VALUES 
 ('Реал Мадрид', '1902-03-06', 'https://www.realmadrid.com/en-US'),
 ('Манчестер Сити', '1880-11-23', 'https://www.mancity.com/');
@@ -44,3 +46,5 @@ INSERT INTO staff (staff_name, staff_surname, salary, specification_id, club_id)
 INSERT INTO game (stadium_id, team_1_id, team_2_id, match_date) VALUES 
 (1, 1, 2, '2025-12-20'),
 (2, 2, 1, '2026-01-10');
+
+COMMIT;
