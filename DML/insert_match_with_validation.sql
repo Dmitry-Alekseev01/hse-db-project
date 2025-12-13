@@ -37,11 +37,11 @@ BEGIN
     RAISE EXCEPTION 'На стадионе % уже запланирован матч на дату %.', p_stadium_id, p_match_date;
   END IF;
 
-  INSERT INTO game (stadium_id, team_1_id, team_2_id, match_date)
-  VALUES (p_stadium_id, p_home_team, p_away_team, p_match_date);
+  INSERT INTO game (stadium_id, team_1_id, team_2_id, match_date, attendance)
+  VALUES (p_stadium_id, p_home_team, p_away_team, p_match_date, p_expected_attendance);
 
-  RAISE NOTICE 'Матч успешно запланирован: stadium=% date=% home=% away=%',
-               p_stadium_id, p_match_date, p_home_team, p_away_team;
+  RAISE NOTICE 'Матч успешно запланирован: stadium=% date=% home=% away=% attendance=%',
+               p_stadium_id, p_match_date, p_home_team, p_away_team, p_expected_attendance;
 END $$ LANGUAGE plpgsql;
 
 COMMIT;

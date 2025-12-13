@@ -43,8 +43,8 @@ INSERT INTO staff (staff_name, staff_surname, salary, specification_id, club_id)
 ('Анна', 'Смит', 31000.00, 4, 1),
 ('Боб', 'Браун', 40000.00, 6, 2);
 
-INSERT INTO game (stadium_id, team_1_id, team_2_id, match_date) VALUES 
-(1, 1, 2, '2025-12-20'),
-(2, 2, 1, '2026-01-10');
+INSERT INTO game (stadium_id, team_1_id, team_2_id, match_date, attendance) VALUES 
+(1, 1, 2, '2025-12-20', 80000),
+(2, 2, 1, '2026-01-10', 50000);
 
 COMMIT;
