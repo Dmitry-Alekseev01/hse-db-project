@@ -1,0 +1,43 @@
+services:
+  football-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: football-service
+    ports:
+      - "${PORT}:8080"
+    networks:
+      - football-net
+    depends_on:
+      football-db:
+        condition: service_healthy
+    env_file: ./.env
+
+  football-db:
+    image: postgres:17
+    container_name: football-db
+    restart: always
+    env_file: ./.env
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - "football-db-data:/var/lib/postgresql/data"
+      - ./migrations:/docker-entrypoint-initdb.d:ro
+    networks:
+      -  football-net
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  football-db-data:
+
+networks:
+  football-net:
+    driver: bridge

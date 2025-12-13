@@ -1,0 +1,957 @@
+basePath: /api/v1
+definitions:
+  delivery.createClubDTO:
+    properties:
+      club_name:
+        type: string
+      website:
+        type: string
+    required:
+    - club_name
+    type: object
+  delivery.createCoachDTO:
+    properties:
+      coach_name:
+        type: string
+      coach_surname:
+        type: string
+      phone:
+        type: string
+      salary:
+        type: number
+      team_id:
+        type: integer
+    required:
+    - coach_name
+    - coach_surname
+    - phone
+    - salary
+    - team_id
+    type: object
+  delivery.createGameDTO:
+    properties:
+      match_date:
+        type: string
+      stadium_id:
+        type: integer
+      team_1_id:
+        type: integer
+      team_2_id:
+        type: integer
+    required:
+    - match_date
+    - stadium_id
+    - team_1_id
+    - team_2_id
+    type: object
+  delivery.createPlayerDTO:
+    properties:
+      birth_date:
+        type: string
+      phone:
+        type: string
+      player_name:
+        type: string
+      player_number:
+        type: integer
+      player_surname:
+        type: string
+      salary:
+        type: number
+      status_id:
+        type: integer
+      team_id:
+        type: integer
+    required:
+    - birth_date
+    - phone
+    - player_name
+    - player_number
+    - player_surname
+    - salary
+    - status_id
+    - team_id
+    type: object
+  delivery.createStadiumDTO:
+    properties:
+      capacity:
+        type: integer
+      location:
+        type: string
+    required:
+    - capacity
+    - location
+    type: object
+  delivery.createStaffDTO:
+    properties:
+      club_id:
+        type: integer
+      salary:
+        type: number
+      specification_id:
+        type: integer
+      staff_name:
+        type: string
+      staff_surname:
+        type: string
+    required:
+    - club_id
+    - salary
+    - specification_id
+    - staff_name
+    - staff_surname
+    type: object
+  delivery.createTeamDTO:
+    properties:
+      budget:
+        type: number
+      club_id:
+        type: integer
+      team_name:
+        type: string
+    required:
+    - budget
+    - club_id
+    - team_name
+    type: object
+  domain.Club:
+    properties:
+      club_name:
+        type: string
+      creation_date:
+        type: string
+      team_id:
+        type: integer
+      website:
+        type: string
+    type: object
+  domain.Coach:
+    properties:
+      coach_id:
+        type: integer
+      coach_name:
+        type: string
+      coach_surname:
+        type: string
+      phone:
+        type: string
+      salary:
+        type: number
+      team_id:
+        type: integer
+    type: object
+  domain.ErrorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  domain.Game:
+    properties:
+      match_date:
+        type: string
+      match_id:
+        type: integer
+      stadium_id:
+        type: integer
+      team_1_id:
+        type: integer
+      team_2_id:
+        type: integer
+    type: object
+  domain.Player:
+    properties:
+      birth_date:
+        type: string
+      phone:
+        type: string
+      player_id:
+        type: integer
+      player_name:
+        type: string
+      player_number:
+        type: integer
+      player_surname:
+        type: string
+      salary:
+        type: number
+      status_id:
+        type: integer
+      team_id:
+        type: integer
+    type: object
+  domain.Stadium:
+    properties:
+      build_date:
+        type: string
+      capacity:
+        type: integer
+      location:
+        type: string
+      stadium_id:
+        type: integer
+    type: object
+  domain.Staff:
+    properties:
+      club_id:
+        type: integer
+      salary:
+        type: number
+      specification_id:
+        type: integer
+      staff_id:
+        type: integer
+      staff_name:
+        type: string
+      staff_surname:
+        type: string
+    type: object
+  domain.Team:
+    properties:
+      budget:
+        type: number
+      club_id:
+        type: integer
+      team_id:
+        type: integer
+      team_name:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@example.com
+    name: API Support
+  description: REST API сервиса управления футбольным клубом.
+  license:
+    name: MIT License
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: Football Service API
+  version: "1.0"
+paths:
+  /clubs:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает все клубы из базы данных
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Club'
+            type: array
+      summary: Получить список клубов
+      tags:
+      - club
+    post:
+      consumes:
+      - application/json
+      description: Добавляет клуб в базу
+      parameters:
+      - description: Данные клуба
+        in: body
+        name: club
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Club'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.Club'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Создать новый клуб
+      tags:
+      - club
+  /clubs/{id}:
+    delete:
+      description: Удаляет клуб по идентификатору
+      parameters:
+      - description: ID клуба
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: Успешно удалено
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Удалить клуб
+      tags:
+      - club
+    get:
+      consumes:
+      - application/json
+      description: Возвращает данные клуба по его идентификатору
+      parameters:
+      - description: ID клуба
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Club'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Получить клуб по ID
+      tags:
+      - club
+    put:
+      consumes:
+      - application/json
+      description: Обновляет клуб по ID
+      parameters:
+      - description: ID клуба
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Данные клуба для обновления
+        in: body
+        name: club
+        required: true
+        schema:
+          $ref: '#/definitions/delivery.createClubDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Club'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Обновить клуб
+      tags:
+      - club
+  /coachs:
+    get:
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Coach'
+            type: array
+      summary: Список Coach
+      tags:
+      - coach
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Данные
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/delivery.createCoachDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.Coach'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Создать Coach
+      tags:
+      - coach
+  /coachs/{id}:
+    delete:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: Deleted
+      summary: Удалить Coach
+      tags:
+      - coach
+    get:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Coach'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Получить Coach
+      tags:
+      - coach
+    put:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Данные
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/delivery.createCoachDTO'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Coach'
+      summary: Обновить Coach
+      tags:
+      - coach
+  /games:
+    get:
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Game'
+            type: array
+      summary: Список Game
+      tags:
+      - game
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Данные
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/delivery.createGameDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.Game'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Создать Game
+      tags:
+      - game
+  /games/{id}:
+    delete:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: Deleted
+      summary: Удалить Game
+      tags:
+      - game
+    get:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Game'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Получить Game
+      tags:
+      - game
+    put:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Данные
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/delivery.createGameDTO'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Game'
+      summary: Обновить Game
+      tags:
+      - game
+  /players:
+    get:
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Player'
+            type: array
+      summary: Список Player
+      tags:
+      - player
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Данные
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/delivery.createPlayerDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.Player'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Создать Player
+      tags:
+      - player
+  /players/{id}:
+    delete:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: Deleted
+      summary: Удалить Player
+      tags:
+      - player
+    get:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Player'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Получить Player
+      tags:
+      - player
+    put:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Данные
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/delivery.createPlayerDTO'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Player'
+      summary: Обновить Player
+      tags:
+      - player
+  /stadiums:
+    get:
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Stadium'
+            type: array
+      summary: Список Stadium
+      tags:
+      - stadium
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Данные
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/delivery.createStadiumDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.Stadium'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Создать Stadium
+      tags:
+      - stadium
+  /stadiums/{id}:
+    delete:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: Deleted
+      summary: Удалить Stadium
+      tags:
+      - stadium
+    get:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Stadium'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Получить Stadium
+      tags:
+      - stadium
+    put:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Данные
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/delivery.createStadiumDTO'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Stadium'
+      summary: Обновить Stadium
+      tags:
+      - stadium
+  /staffs:
+    get:
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Staff'
+            type: array
+      summary: Список Staff
+      tags:
+      - staff
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Данные
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/delivery.createStaffDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.Staff'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Создать Staff
+      tags:
+      - staff
+  /staffs/{id}:
+    delete:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: Deleted
+      summary: Удалить Staff
+      tags:
+      - staff
+    get:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Staff'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Получить Staff
+      tags:
+      - staff
+    put:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Данные
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/delivery.createStaffDTO'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Staff'
+      summary: Обновить Staff
+      tags:
+      - staff
+  /teams:
+    get:
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Team'
+            type: array
+      summary: Список Team
+      tags:
+      - team
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Данные
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/delivery.createTeamDTO'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.Team'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Создать Team
+      tags:
+      - team
+  /teams/{id}:
+    delete:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: Deleted
+      summary: Удалить Team
+      tags:
+      - team
+    get:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Team'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      summary: Получить Team
+      tags:
+      - team
+    put:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Данные
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/delivery.createTeamDTO'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Team'
+      summary: Обновить Team
+      tags:
+      - team
+swagger: "2.0"
